@@ -1,8 +1,8 @@
 var  qyService = require('../service/qyService');
-module.exports=function(app){
+module.exports=function(app,http){
 	app.get('/',function(req,res){
-		//res.send('Hello world');
-		console.log(new qyService().getAccessToken());
+		res.send('Hello world');
+		console.log(qyService.getAccessToken());
 		})
 
 	app.get('/about',function(req,res){

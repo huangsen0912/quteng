@@ -1,11 +1,55 @@
-var qyService=function(){
-	_request:function(){
-             	
-	},
-	getAccessToken:function(){
-		this._request();
-	},
-	
-}
+var https = require('https');
+var qs 	= require('querystring');
+var conf  = require('../config/conf.js');
+var qyService=(function(https,qs,conf){
+		var options={
+		  hostname:'qyapi.weixin.qq.com',
+		  path:'/cgi-bin',
+		  method:'GET',
+		};
+       //request,内部方法 
+	var _request=function(method,path,params_data){
+	        method==='post' ? params_data=qs.stringify(post_post) : options.path=options.path+path+'?'+qs.stringify(params_data); 
+	        options.method=method;
+		//用来存放字符流数据，然后转成字符串
+		var dataArr=[],len=0,data;
+		console.log(options);
+		var req=https.request(options,function(res){
+			res.on('data',function(chunk){
+				dataArr.push(chunk);
+				len+=chunk.length;
+			}).on('end',function(){
+				data=Buffer.concat(dataArr,len).toString();
+				console.log(data);
+			        return data;	
+			})
+		}).on('error',function(e){
+		          console.log(e);
+			  return false;
+		})
 
-exports.qyService=qyService;
+		//post方法写入数据
+		if(method==='post'){
+		    res.write(params_data);
+		}
+		//请求结束
+		req.end();
+	};
+	var getAccessToken=function(){
+		var params = {	
+	                corpid:conf.qy.corpid,
+			corpsecret:conf.qy.corpsecret,
+                    };
+                console.log(_request('get','/gettoken',params));
+	};
+
+	return {
+	    getAccessToken:getAccessToken,
+	
+	}
+
+
+	
+})(https,qs,conf);
+
+module.exports=qyService;
