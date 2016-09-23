@@ -1,0 +1,11 @@
+var qyService=function(){
+	_request:function(){
+             	
+	},
+	getAccessToken:function(){
+		this._request();
+	},
+	
+}
+
+exports.qyService=qyService;
