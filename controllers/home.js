@@ -6,10 +6,13 @@ module.exports=function(app,http){
 		//	console.log(123);
 		//	console.log(res);
 		//});
-		qyh.departmentList(1,function(res){
+		// qyh.departmentList(1,function(res){
+		// 	console.log(res);
+		//
+		// });
+		qyh.departmentDelete(10,function(code,res){
 			console.log(res);
-		
-		});
+		})
 		})
 
 	app.get('/about',function(req,res){
