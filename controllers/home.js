@@ -1,22 +1,18 @@
-var  qyh = require('../libs/qyh.js');
-module.exports=function(app,http){
+var  API = require('../libs/qyh/qyh').API;
+var conf = require("../config/conf.js");
+module.exports=function(app){
 	app.get('/',function(req,res){
-		res.send('Hello world');
-		//qyh.getAccessToken(function(res){
-		//	console.log(123);
-		//	console.log(res);
-		//});
-		// qyh.departmentList(1,function(res){
-		// 	console.log(res);
-		//
-		// });
-		qyh.departmentDelete(10,function(code,res){
-			console.log(res);
+			 res.end('123');
 		})
-		})
-
 	app.get('/about',function(req,res){
-		res.send('about');
+			console.log('/about');
+			var pool=require('../libs/mysql/mysql-pool').createMysqlPool();
+			pool.getConnection(function(err,client){
+				client.query('select * from member limit 10',null,function(err,res){
+							pool.releaseConnection(client);
+					   console.log(err,res);
+				})
+			})
+			res.end('123');
 		})
-
 }

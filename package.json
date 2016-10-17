@@ -7,9 +7,7 @@
   "description": "区腾--专注于区域生活和经济的发展",
   "main": "index.js",
   "devDependencies": {
-    "urllib": ">=0.5.17",
-    "debug":"^2.2.0",
-    "default-user-agent":"^1.0.0"
+    "express" :"^4.4.1"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
