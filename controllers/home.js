@@ -14,5 +14,27 @@ module.exports=function(app){
 				})
 			})
 			res.end('123');
-		})
+		});
+		app.get('/m',function(req,res){
+				// var Test = require('../models/TestSchema');
+				// var test = new Test({
+				// 	name: 'abc',
+				// 	age :20
+				// });
+				// test.save(function(err){
+				// 	console.log(err);
+				// })
+				var MongoClient = require('../libs/mongodb/mongodb');
+				MongoClient.connect(function(db){
+					var collection=db.collection('cbd');
+					var data = {"name":"abc","age":20};
+					collection.insert(data,function(err,result){
+						console.log(result);
+					})
+					collection.find().toArray(function(err,result){
+						console.log(result);
+					})
+				})
+				res.end('123');
+		});
 }
